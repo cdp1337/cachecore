@@ -1,0 +1,154 @@
+<?php
+/**
+ * File: CacheXCache
+ * 	XCache-based caching class.
+ *
+ * Version:
+ * 	2009.03.16
+ * 
+ * Copyright:
+ * 	2006-2009 LifeNexus Digital, Inc., and contributors.
+ * 
+ * License:
+ * 	Simplified BSD License - http://opensource.org/licenses/bsd-license.php
+ * 
+ * See Also:
+ * 	Tarzan - http://tarzan-aws.com
+ * 	XCache - http://xcache.lighttpd.net
+ */
+
+
+/*%******************************************************************************************%*/
+// CLASS
+
+/**
+ * Class: CacheXCache
+ * 	Container for all XCache-based cache methods. Inherits additional methods from CacheCore.
+ */
+class CacheXCache extends CacheCore
+{
+
+	/*%******************************************************************************************%*/
+	// CONSTRUCTOR
+
+	/**
+	 * Method: __construct()
+	 * 	The constructor
+	 * 
+	 * Access:
+	 * 	public
+	 * 
+	 * Parameters:
+	 * 	name - _string_ (Required) A name to uniquely identify the cache object.
+	 * 	location - _string_ (Required) The location to store the cache object in. This may vary by cache method.
+	 * 	expires - _integer_ (Required) The number of seconds until a cache object is considered stale.
+	 * 
+	 * Returns:
+	 * 	_object_ Reference to the cache object.
+	 * 
+	 * See Also:
+	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
+	 */
+	public function __construct($name, $location, $expires)
+	{
+		parent::__construct($name, null, $expires);
+		$this->id = $this->name;
+	}
+
+	/**
+	 * Method: create()
+	 * 	Creates a new cache.
+	 * 
+	 * Access:
+	 * 	public
+	 * 
+	 * Parameters:
+	 * 	data - _mixed_ (Required) The data to cache.
+	 * 
+	 * Returns:
+	 * 	_boolean_ Whether the operation was successful.
+	 * 
+	 * See Also:
+	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
+	 */
+	public function create($data)
+	{
+		return xcache_set($this->id, serialize($data), $this->expires);
+	}
+
+	/**
+	 * Method: read()
+	 * 	Reads a cache.
+	 * 
+	 * Access:
+	 * 	public
+	 * 
+	 * Returns:
+	 * 	_mixed_ Either the content of the cache object, or _boolean_ false.
+	 * 
+	 * See Also:
+	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
+	 */
+	public function read()
+	{
+		return unserialize(xcache_get($this->id));
+	}
+
+	/**
+	 * Method: update()
+	 * 	Updates an existing cache.
+	 * 
+	 * Access:
+	 * 	public
+	 * 
+	 * Parameters:
+	 * 	data - _mixed_ (Required) The data to cache.
+	 * 
+	 * Returns:
+	 * 	_boolean_ Whether the operation was successful.
+	 * 
+	 * See Also:
+	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
+	 */
+	public function update($data)
+	{
+		return xcache_set($this->id, serialize($data), $this->expires);
+	}
+
+	/**
+	 * Method: delete()
+	 * 	Deletes a cache.
+	 * 
+	 * Access:
+	 * 	public
+	 * 
+	 * Returns:
+	 * 	_boolean_ Whether the operation was successful.
+	 */
+	public function delete()
+	{
+		return xcache_unset($this->id);
+	}
+
+	/**
+	 * Method: is_expired()
+	 * 	Defined here, but always returns false.  XCache manages it's own expirations.  It's worth
+	 *  mentioning that if the server is configured for a long xcache.var_gc_interval then it IS
+	 *  possible for expired data to remain in the var cache, though it is not possible to access
+	 *  it.
+	 * 
+	 * Access:
+	 * 	public
+	 * 
+	 * Returns:
+	 * 	_boolean_ Whether the cache is expired or not.
+	 * 
+	 * See Also:
+	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
+	 */
+	public function is_expired()
+	{
+		return false;
+	}
+}
+?>
