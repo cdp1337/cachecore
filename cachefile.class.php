@@ -166,6 +166,8 @@ class CacheFile extends CacheCore implements ICacheCore
 	 */
 	public function timestamp()
 	{
+		clearstatcache();
+
 		if (file_exists($this->id))
 		{
 			$this->timestamp = filemtime($this->id);
@@ -190,8 +192,6 @@ class CacheFile extends CacheCore implements ICacheCore
 	 */
 	public function reset()
 	{
-		clearstatcache();
-
 		if (file_exists($this->id))
 		{
 			return touch($this->id);
