@@ -1,7 +1,7 @@
 <?php
 /**
- * File: CacheAPC
- * 	APC-based caching class.
+ * File: ICacheCore
+ * 	Interface that all storage-specific adapters must adhere to.
  *
  * Version:
  * 	2009.03.22
@@ -13,52 +13,24 @@
  * 	Simplified BSD License - http://opensource.org/licenses/bsd-license.php
  * 
  * See Also:
-* 	CacheCore - http://cachecore.googlecode.com
+ * 	CacheCore - http://cachecore.googlecode.com
  * 	CloudFusion - http://getcloudfusion.com
- * 	APC - http://php.net/apc
  */
 
 
 /*%******************************************************************************************%*/
-// CLASS
+// INTERFACE
 
 /**
- * Class: CacheAPC
- * 	Container for all APC-based cache methods. Inherits additional methods from CacheCore. Adheres to the ICacheCore interface.
+ * Interface: ICacheCore
+ * 	Defines the methods that all implementing classes MUST have. Covers CRUD (create, read, update, delete) methods, as well as others that are used in the base CacheCore class.
  */
-class CacheAPC extends CacheCore implements ICacheCore
+interface ICacheCore
 {
-
-	/*%******************************************************************************************%*/
-	// CONSTRUCTOR
-
-	/**
-	 * Method: __construct()
-	 * 	The constructor
-	 * 
-	 * Access:
-	 * 	public
-	 * 
-	 * Parameters:
-	 * 	name - _string_ (Required) A name to uniquely identify the cache object.
-	 * 	location - _string_ (Required) The location to store the cache object in. This may vary by cache method.
-	 * 	expires - _integer_ (Required) The number of seconds until a cache object is considered stale.
-	 * 
-	 * Returns:
-	 * 	_object_ Reference to the cache object.
-	 * 
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
-	 */
-	public function __construct($name, $location, $expires)
-	{
-		parent::__construct($name, null, $expires);
-		$this->id = $this->name;
-	}
 
 	/**
 	 * Method: create()
-	 * 	Creates a new cache.
+	 * 	Creates a new cache. Placeholder method should be defined by the implementing class.
 	 * 
 	 * Access:
 	 * 	public
@@ -72,14 +44,11 @@ class CacheAPC extends CacheCore implements ICacheCore
 	 * See Also:
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
-	public function create($data)
-	{
-		return apc_add($this->id, serialize($data), $this->expires);
-	}
+	public function create($data);
 
 	/**
 	 * Method: read()
-	 * 	Reads a cache.
+	 * 	Reads a cache. Placeholder method should be defined by the implementing class.
 	 * 
 	 * Access:
 	 * 	public
@@ -90,14 +59,11 @@ class CacheAPC extends CacheCore implements ICacheCore
 	 * See Also:
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
-	public function read()
-	{
-		return unserialize(apc_fetch($this->id));
-	}
+	public function read();
 
 	/**
 	 * Method: update()
-	 * 	Updates an existing cache.
+	 * 	Updates an existing cache. Placeholder method should be defined by the implementing class.
 	 * 
 	 * Access:
 	 * 	public
@@ -111,14 +77,11 @@ class CacheAPC extends CacheCore implements ICacheCore
 	 * See Also:
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
-	public function update($data)
-	{
-		return apc_store($this->id, serialize($data), $this->expires);
-	}
+	public function update($data);
 
 	/**
 	 * Method: delete()
-	 * 	Deletes a cache.
+	 * 	Deletes a cache. Placeholder method should be defined by the implementing class.
 	 * 
 	 * Access:
 	 * 	public
@@ -126,14 +89,11 @@ class CacheAPC extends CacheCore implements ICacheCore
 	 * Returns:
 	 * 	_boolean_ Whether the operation was successful.
 	 */
-	public function delete()
-	{
-		return apc_delete($this->id);
-	}
+	public function delete();
 
 	/**
 	 * Method: is_expired()
-	 * 	Implemented here, but always returns false. APC manages it's own expirations.
+	 * 	Determines whether a cache has expired or not. Placeholder method should be defined by the implementing class.
 	 * 
 	 * Access:
 	 * 	public
@@ -144,14 +104,11 @@ class CacheAPC extends CacheCore implements ICacheCore
 	 * See Also:
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
-	public function is_expired()
-	{
-		return false;
-	}
+	public function is_expired();
 
 	/**
 	 * Method: timestamp()
-	 * 	Implemented here, but always returns false. APC manages it's own expirations.
+	 * 	Retrieves the time stamp of the cache. Placeholder method should be defined by the implementing class.
 	 * 
 	 * Access:
 	 * 	public
@@ -159,14 +116,11 @@ class CacheAPC extends CacheCore implements ICacheCore
 	 * Returns:
 	 * 	_mixed_ Either the Unix time stamp of the cache creation, or _boolean_ false.
 	 */
-	public function timestamp()
-	{
-		return false;
-	}
+	public function timestamp();
 
 	/**
 	 * Method: reset()
-	 * 	Implemented here, but always returns false. APC manages it's own expirations.
+	 * 	Resets the freshness of the cache. Placeholder method should be defined by the implementing class.
 	 * 
 	 * Access:
 	 * 	public
@@ -177,9 +131,6 @@ class CacheAPC extends CacheCore implements ICacheCore
 	 * See Also:
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
-	public function reset()
-	{
-		return false;
-	}
+	public function reset();
 }
 ?>

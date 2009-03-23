@@ -4,7 +4,7 @@
  * 	Database-based caching class using PHP Data Objects (PDO).
  *
  * Version:
- * 	2008.11.30
+ * 	2009.03.22
  * 
  * Copyright:
  * 	2006-2009 LifeNexus Digital, Inc., and contributors.
@@ -13,7 +13,8 @@
  * 	Simplified BSD License - http://opensource.org/licenses/bsd-license.php
  * 
  * See Also:
- * 	Tarzan - http://tarzan-aws.com
+* 	CacheCore - http://cachecore.googlecode.com
+ * 	CloudFusion - http://getcloudfusion.com
  * 	PDO - http://php.net/pdo
  */
 
@@ -23,9 +24,9 @@
 
 /**
  * Class: CachePDO
- * 	Container for all PDO-based cache methods. Inherits additional methods from CacheCore.
+ * 	Container for all PDO-based cache methods. Inherits additional methods from CacheCore. Adheres to the ICacheCore interface.
  */
-class CachePDO extends CacheCore
+class CachePDO extends CacheCore implements ICacheCore
 {
 	/**
 	 * Property: pdo

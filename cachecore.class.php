@@ -4,7 +4,7 @@
  * 	Core functionality and default settings shared across caching classes.
  *
  * Version:
- * 	2008.11.30
+ * 	2009.03.22
  * 
  * Copyright:
  * 	2006-2009 LifeNexus Digital, Inc., and contributors.
@@ -13,8 +13,19 @@
  * 	Simplified BSD License - http://opensource.org/licenses/bsd-license.php
  * 
  * See Also:
- * 	Tarzan - http://tarzan-aws.com
+* 	CacheCore - http://cachecore.googlecode.com
+ * 	CloudFusion - http://getcloudfusion.com
  */
+
+
+/*%******************************************************************************************%*/
+// CORE DEPENDENCIES
+
+// Include the ICacheCore interface.
+if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'icachecore.interface.php'))
+{
+        include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'icachecore.interface.php';
+}
 
 
 /*%******************************************************************************************%*/
@@ -86,111 +97,6 @@ class CacheCore
 
 		return $this;
 	}
-
-	/**
-	 * Method: create()
-	 * 	Creates a new cache. Placeholder method should be defined by the extending class.
-	 * 
-	 * Access:
-	 * 	public
-	 * 
-	 * Parameters:
-	 * 	data - _mixed_ (Required) The data to cache.
-	 * 
-	 * Returns:
-	 * 	void
-	 * 
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
-	 */
-	public function create($data) { return; }
-
-	/**
-	 * Method: read()
-	 * 	Reads a cache. Placeholder method should be defined by the extending class.
-	 * 
-	 * Access:
-	 * 	public
-	 * 
-	 * Returns:
-	 * 	void
-	 * 
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
-	 */
-	public function read() { return; }
-
-	/**
-	 * Method: update()
-	 * 	Updates an existing cache. Placeholder method should be defined by the extending class.
-	 * 
-	 * Access:
-	 * 	public
-	 * 
-	 * Parameters:
-	 * 	data - _mixed_ (Required) The data to cache.
-	 * 
-	 * Returns:
-	 * 	void
-	 * 
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
-	 */
-	public function update($data) { return; }
-
-	/**
-	 * Method: delete()
-	 * 	Deletes a cache. Placeholder method should be defined by the extending class.
-	 * 
-	 * Access:
-	 * 	public
-	 * 
-	 * Returns:
-	 * 	void
-	 */
-	public function delete() { return; }
-
-	/**
-	 * Method: timestamp()
-	 * 	Retrieves the timestamp of the cache. Placeholder method should be defined by the extending class.
-	 * 
-	 * Access:
-	 * 	public
-	 * 
-	 * Returns:
-	 * 	void
-	 */
-	public function timestamp() { return; }
-
-	/**
-	 * Method: reset()
-	 * 	Resets the freshness of the cache. Placeholder method should be defined by the extending class.
-	 * 
-	 * Access:
-	 * 	public
-	 * 
-	 * Returns:
-	 * 	void
-	 * 
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
-	 */
-	public function reset() { return; }
-
-	/**
-	 * Method: is_expired()
-	 * 	Checks whether the cache object is expired or not. Placeholder method should be defined by the extending class.
-	 * 
-	 * Access:
-	 * 	public
-	 * 
-	 * Returns:
-	 * 	_boolean_ Whether the cache is expired or not.
-	 * 
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
-	 */
-	public function is_expired() { return; }
 
 	/**
 	 * Method: response_manager()

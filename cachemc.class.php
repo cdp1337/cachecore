@@ -4,7 +4,7 @@
  * 	Memcache-based caching class.
  *
  * Version:
- * 	2008.12.03
+* 	2009.03.22
  * 
  * Copyright:
  * 	2006-2009 LifeNexus Digital, Inc., and contributors.
@@ -13,7 +13,8 @@
  * 	Simplified BSD License - http://opensource.org/licenses/bsd-license.php
  * 
  * See Also:
- * 	Tarzan - http://tarzan-aws.com
+* 	CacheCore - http://cachecore.googlecode.com
+ * 	CloudFusion - http://getcloudfusion.com
  * 	Memcache - http://php.net/memcache
  */
 
@@ -23,9 +24,9 @@
 
 /**
  * Class: CacheMC
- * 	Container for all Memcache-based cache methods. Inherits additional methods from CacheCore.
+ * 	Container for all Memcache-based cache methods. Inherits additional methods from CacheCore. Adheres to the ICacheCore interface.
  */
-class CacheMC extends CacheCore
+class CacheMC extends CacheCore implements ICacheCore
 {
 	/**
 	 * Property: memcache
@@ -167,6 +168,39 @@ class CacheMC extends CacheCore
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
 	public function is_expired()
+	{
+		return false;
+	}
+
+	/**
+	 * Method: timestamp()
+	 * 	Implemented here, but always returns false. Memcache manages it's own expirations.
+	 * 
+	 * Access:
+	 * 	public
+	 * 
+	 * Returns:
+	 * 	_mixed_ Either the Unix time stamp of the cache creation, or _boolean_ false.
+	 */
+	public function timestamp()
+	{
+		return false;
+	}
+
+	/**
+	 * Method: reset()
+	 * 	Implemented here, but always returns false. Memcache manages it's own expirations.
+	 * 
+	 * Access:
+	 * 	public
+	 * 
+	 * Returns:
+	 * 	_boolean_ Whether the operation was successful.
+	 * 
+	 * See Also:
+	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
+	 */
+	public function reset()
 	{
 		return false;
 	}
