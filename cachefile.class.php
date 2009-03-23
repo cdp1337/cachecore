@@ -190,6 +190,8 @@ class CacheFile extends CacheCore implements ICacheCore
 	 */
 	public function reset()
 	{
+		clearstatcache();
+
 		if (file_exists($this->id))
 		{
 			return touch($this->id);
