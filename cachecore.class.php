@@ -128,6 +128,7 @@ class CacheCore
 				else
 				{
 					$this->reset();
+					$data = $this->read();
 				}
 			}
 		}
