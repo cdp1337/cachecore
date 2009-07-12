@@ -4,7 +4,7 @@
  * 	Core functionality and default settings shared across caching classes.
  *
  * Version:
- * 	2009.03.22
+ * 	2009.07.11
  * 
  * Copyright:
  * 	2006-2009 LifeNexus Digital, Inc., and contributors.
