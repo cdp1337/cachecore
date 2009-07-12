@@ -134,6 +134,11 @@ class CacheCore
 		}
 		else
 		{
+			if (!is_array($params))
+			{
+				$params = array();
+			}
+
 			if ($data = call_user_func_array($callback, $params))
 			{
 				$this->create($data);
