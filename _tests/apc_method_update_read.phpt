@@ -1,6 +1,11 @@
 --TEST--
 CacheAPC::update() then read()
 
+--SKIPIF--
+<?php
+	if (!function_exists('apc_add')) print 'skip APC extension not available';
+?>
+
 --FILE--
 <?php
 	require_once dirname(__FILE__) . '/../cachecore.class.php';

@@ -1,6 +1,11 @@
 --TEST--
 CacheAPC::create()
 
+--SKIPIF--
+<?php
+	if (!function_exists('apc_add')) print 'skip APC extension not available';
+?>
+
 --FILE--
 <?php
 	apc_clear_cache();

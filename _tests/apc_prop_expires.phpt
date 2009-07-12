@@ -1,5 +1,5 @@
 --TEST--
-CacheAPC::delete() and read()
+CacheAPC::expires
 
 --SKIPIF--
 <?php
@@ -11,14 +11,8 @@ CacheAPC::delete() and read()
 	require_once dirname(__FILE__) . '/../cachecore.class.php';
 	require_once dirname(__FILE__) . '/../cacheapc.class.php';
 	$cache = new CacheAPC('test', null, 60);
-	var_dump($cache->create('test data'));
-	var_dump($cache->read());
-	var_dump($cache->delete());
-	var_dump($cache->read());
+	var_dump($cache->expires);
 ?>
 
 --EXPECT--
-bool(true)
-string(9) "test data"
-bool(true)
-bool(false)
+int(60)
