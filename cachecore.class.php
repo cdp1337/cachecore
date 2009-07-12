@@ -117,7 +117,16 @@ class CacheCore
 	 */
 	public function response_manager($callback, $params = null)
 	{
-		if (!is_array($params))
+		// Automatically handle $params values.
+		if (is_array($params))
+		{
+			continue;
+		}
+		elseif (is_string($params))
+		{
+			$params = array($params);
+		}
+		else
 		{
 			$params = array();
 		}
