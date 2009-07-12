@@ -73,10 +73,15 @@ class CacheMC extends CacheCore implements ICacheCore
 			$this->compressed = MEMCACHE_COMPRESSED;
 		}
 
-		foreach ($location as $loc)
+		if (isset($location) && sizeof($location) > 0)
 		{
-			$this->memcache->addServer($loc['host'], $loc['port']);
+			foreach ($location as $loc)
+			{
+				$this->memcache->addServer($loc['host'], $loc['port']);
+			}
 		}
+
+		return;
 	}
 
 	/**
