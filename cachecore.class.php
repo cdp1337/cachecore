@@ -125,7 +125,7 @@ class CacheCore
 		}
 		else
 		{
-			$params = array();
+			$params = array($params);
 		}
 
 		if ($data = $this->read())
