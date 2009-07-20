@@ -77,7 +77,14 @@ class CacheMC extends CacheCore implements ICacheCore
 		{
 			foreach ($location as $loc)
 			{
-				$this->memcache->addServer($loc['host'], $loc['port']);
+				if (isset($loc['port']) && !empty($loc['port']))
+				{
+					$this->memcache->addServer($loc['host'], $loc['port']);
+				}
+				else
+				{
+					$this->memcache->addServer($loc['host']);
+				}
 			}
 		}
 
