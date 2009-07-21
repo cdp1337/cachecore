@@ -223,4 +223,3 @@ class CacheFile extends CacheCore implements ICacheCore
 		return false;
 	}
 }
-?>

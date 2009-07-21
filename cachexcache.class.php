@@ -185,4 +185,3 @@ class CacheXCache extends CacheCore implements ICacheCore
 		return false;
 	}
 }
-?>

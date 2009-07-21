@@ -217,4 +217,3 @@ class CacheMC extends CacheCore implements ICacheCore
 		return false;
 	}
 }
-?>

@@ -154,4 +154,3 @@ class CacheCore
 		return $data;
 	}
 }
-?>

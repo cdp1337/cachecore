@@ -182,4 +182,3 @@ class CacheAPC extends CacheCore implements ICacheCore
 		return false;
 	}
 }
-?>

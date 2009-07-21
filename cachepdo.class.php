@@ -374,4 +374,3 @@ class CachePDO extends CacheCore implements ICacheCore
 		return $expires;
 	}
 }
-?>

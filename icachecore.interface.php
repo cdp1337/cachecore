@@ -133,4 +133,3 @@ interface ICacheCore
 	 */
 	public function reset();
 }
-?>
