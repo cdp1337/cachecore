@@ -9,9 +9,15 @@ CachePDO - class_implements (MySQL)
 
 --FILE--
 <?php
+	// Include libraries
 	require_once dirname(__FILE__) . '/../cachecore.class.php';
 	require_once dirname(__FILE__) . '/../cachepdo.class.php';
-	$cache = new CachePDO('test', 'mysql://user:pass@hostname:80/table', 60);
+
+	// Include database connection info
+	require_once dirname(__FILE__) . '/_config.inc.php';
+
+	// Instantiate class
+	$cache = new CachePDO('test', $mysql_dsn, 60); // mysql://user:pass@hostname:80/table
 	var_dump(class_implements($cache));
 ?>
 

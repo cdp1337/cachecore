@@ -5,13 +5,13 @@
  *
  * Version:
  * 	2009.03.22
- * 
+ *
  * Copyright:
  * 	2006-2009 LifeNexus Digital, Inc., and contributors.
- * 
+ *
  * License:
  * 	Simplified BSD License - http://opensource.org/licenses/bsd-license.php
- * 
+ *
  * See Also:
 * 	CacheCore - http://cachecore.googlecode.com
  * 	CloudFusion - http://getcloudfusion.com
@@ -89,20 +89,20 @@ class CachePDO extends CacheCore implements ICacheCore
 	/**
 	 * Method: __construct()
 	 * 	The constructor.
-	 * 
+	 *
 	 * 	Tested with MySQL 5.0.x (http://mysql.com), PostgreSQL (http://postgresql.com), and SQLite 3.x (http://sqlite.org). SQLite 2.x is assumed to work. No other PDO-supported databases have been tested (e.g. Oracle, Microsoft SQL Server, IBM DB2, ODBC, Sybase, Firebird). Feel free to send patches for additional database support. See <http://php.net/pdo> for more information.
-	 * 
+	 *
 	 * Access:
 	 * 	public
-	 * 
+	 *
 	 * Parameters:
 	 * 	name - _string_ (Required) A name to uniquely identify the cache object.
 	 * 	location - _string_ (Required) The location to store the cache object in. This may vary by cache method.
 	 * 	expires - _integer_ (Required) The number of seconds until a cache object is considered stale.
-	 * 
+	 *
 	 * Returns:
 	 * 	_object_ Reference to the cache object.
-	 * 
+	 *
 	 * See Also:
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
@@ -156,16 +156,16 @@ class CachePDO extends CacheCore implements ICacheCore
 	/**
 	 * Method: create()
 	 * 	Creates a new cache.
-	 * 
+	 *
 	 * Access:
 	 * 	public
-	 * 
+	 *
 	 * Parameters:
 	 * 	data - _mixed_ (Required) The data to cache.
-	 * 
+	 *
 	 * Returns:
 	 * 	_boolean_ Whether the operation was successful.
-	 * 
+	 *
 	 * See Also:
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
@@ -181,13 +181,13 @@ class CachePDO extends CacheCore implements ICacheCore
 	/**
 	 * Method: read()
 	 * 	Reads a cache.
-	 * 
+	 *
 	 * Access:
 	 * 	public
-	 * 
+	 *
 	 * Returns:
 	 * 	_mixed_ Either the content of the cache object, or _boolean_ false.
-	 * 
+	 *
 	 * See Also:
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
@@ -211,16 +211,16 @@ class CachePDO extends CacheCore implements ICacheCore
 	/**
 	 * Method: update()
 	 * 	Updates an existing cache.
-	 * 
+	 *
 	 * Access:
 	 * 	public
-	 * 
+	 *
 	 * Parameters:
 	 * 	data - _mixed_ (Required) The data to cache.
-	 * 
+	 *
 	 * Returns:
 	 * 	_boolean_ Whether the operation was successful.
-	 * 
+	 *
 	 * See Also:
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
@@ -233,10 +233,10 @@ class CachePDO extends CacheCore implements ICacheCore
 	/**
 	 * Method: delete()
 	 * 	Deletes a cache.
-	 * 
+	 *
 	 * Access:
 	 * 	public
-	 * 
+	 *
 	 * Returns:
 	 * 	_boolean_ Whether the operation was successful.
 	 */
@@ -249,10 +249,10 @@ class CachePDO extends CacheCore implements ICacheCore
 	/**
 	 * Method: timestamp()
 	 * 	Retrieves the timestamp of the cache.
-	 * 
+	 *
 	 * Access:
 	 * 	public
-	 * 
+	 *
 	 * Returns:
 	 * 	_mixed_ Either the Unix timestamp of the cache creation, or _boolean_ false.
 	 */
@@ -285,13 +285,13 @@ class CachePDO extends CacheCore implements ICacheCore
 	/**
 	 * Method: reset()
 	 * 	Resets the freshness of the cache.
-	 * 
+	 *
 	 * Access:
 	 * 	public
-	 * 
+	 *
 	 * Returns:
 	 * 	_boolean_ Whether the operation was successful.
-	 * 
+	 *
 	 * See Also:
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
@@ -305,13 +305,13 @@ class CachePDO extends CacheCore implements ICacheCore
 	/**
 	 * Method: is_expired()
 	 * 	Checks whether the cache object is expired or not.
-	 * 
+	 *
 	 * Access:
 	 * 	public
-	 * 
+	 *
 	 * Returns:
 	 * 	_boolean_ Whether the cache is expired or not.
-	 * 
+	 *
 	 * See Also:
 	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
@@ -328,13 +328,13 @@ class CachePDO extends CacheCore implements ICacheCore
 	/**
 	 * Method: get_drivers()
 	 * 	Returns a list of supported PDO database drivers. Identical to PDO::getAvailableDrivers().
-	 * 
+	 *
 	 * Access:
 	 * 	public
-	 * 
+	 *
 	 * Returns:
 	 * 	_array_ The list of supported database drivers.
-	 * 
+	 *
 	 * See Also:
 	 * 	PHP Method - http://php.net/pdo.getavailabledrivers
 	 */
@@ -346,10 +346,10 @@ class CachePDO extends CacheCore implements ICacheCore
 	/**
 	 * Method: generate_timestamp()
 	 * 	Returns a timestamp value apropriate to the current database type.
-	 * 
+	 *
 	 * Access:
 	 * 	private
-	 * 
+	 *
 	 * Returns:
 	 * 	_mixed_ Timestamp for MySQL and PostgreSQL, integer value for SQLite.
 	 */
