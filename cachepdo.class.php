@@ -361,7 +361,7 @@ class CachePDO extends CacheCore implements ICacheCore
 			// These support timestamps.
 			case 'mysql': // MySQL
 			case 'pgsql': // PostgreSQL
-				$expires = date(DATE_AWS_MYSQL, time());
+				$expires = date(DATE_FORMAT_MYSQL, time());
 				break;
 
 			// These support integers.
