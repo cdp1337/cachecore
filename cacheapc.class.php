@@ -66,9 +66,6 @@ class CacheAPC extends CacheCore implements ICacheCore
 	 *
 	 * Returns:
 	 * 	_boolean_ Whether the operation was successful.
-	 *
-	 * Examples:
-	 * 	example::apc_method_create.phpt:
 	 */
 	public function create($data)
 	{
