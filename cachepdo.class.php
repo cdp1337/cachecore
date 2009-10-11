@@ -4,7 +4,7 @@
  * 	Database-based caching class using PHP Data Objects (PDO).
  *
  * Version:
- * 	2009.03.22
+ * 	2009.10.10
  *
  * Copyright:
  * 	2006-2009 LifeNexus Digital, Inc., and contributors.
@@ -90,7 +90,11 @@ class CachePDO extends CacheCore implements ICacheCore
 	 * Method: __construct()
 	 * 	The constructor.
 	 *
-	 * 	Tested with MySQL 5.0.x (http://mysql.com), PostgreSQL (http://postgresql.com), and SQLite 3.x (http://sqlite.org). SQLite 2.x is assumed to work. No other PDO-supported databases have been tested (e.g. Oracle, Microsoft SQL Server, IBM DB2, ODBC, Sybase, Firebird). Feel free to send patches for additional database support. See <http://php.net/pdo> for more information.
+	 * 	Tested with MySQL 5.0.x (http://mysql.com), PostgreSQL (http://postgresql.com), and SQLite 3.x (http://sqlite.org).
+	 * 	SQLite 2.x is assumed to work. No other PDO-supported databases have been tested (e.g. Oracle, Microsoft SQL Server,
+	 * 	IBM DB2, ODBC, Sybase, Firebird). Feel free to send patches for additional database support.
+	 *
+	 * 	See <http://php.net/pdo> for more information.
 	 *
 	 * Access:
 	 * 	public
@@ -99,20 +103,18 @@ class CachePDO extends CacheCore implements ICacheCore
 	 * 	name - _string_ (Required) A name to uniquely identify the cache object.
 	 * 	location - _string_ (Required) The location to store the cache object in. This may vary by cache method.
 	 * 	expires - _integer_ (Required) The number of seconds until a cache object is considered stale.
+	 * 	gzip - _boolean_ (Optional) Whether data should be gzipped before being stored. Defaults to true.
 	 *
 	 * Returns:
 	 * 	_object_ Reference to the cache object.
-	 *
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
-	public function __construct($name, $location, $expires)
+	public function __construct($name, $location, $expires, $gzip = true)
 	{
 		// Make sure the name is no longer than 40 characters.
 		$name = sha1($name);
 
 		// Call parent constructor and set id.
-		parent::__construct($name, $location, $expires);
+		parent::__construct($name, $location, $expires, $gzip);
 		$this->id = $this->name;
 		$options = array();
 
@@ -165,14 +167,14 @@ class CachePDO extends CacheCore implements ICacheCore
 	 *
 	 * Returns:
 	 * 	_boolean_ Whether the operation was successful.
-	 *
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
 	public function create($data)
 	{
+		$data = serialize($data);
+		$data = $this->gzip ? gzcompress($data) : $data;
+
 		$this->create->bindParam(':id', $this->id);
-		$this->create->bindParam(':data', serialize($data));
+		$this->create->bindParam(':data', $data);
 		$this->create->bindParam(':expires', $this->generate_timestamp());
 
 		return (bool) $this->create->execute();
@@ -187,9 +189,6 @@ class CachePDO extends CacheCore implements ICacheCore
 	 *
 	 * Returns:
 	 * 	_mixed_ Either the content of the cache object, or _boolean_ false.
-	 *
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
 	public function read()
 	{
@@ -202,7 +201,10 @@ class CachePDO extends CacheCore implements ICacheCore
 
 		if ($this->store_read)
 		{
-			return unserialize($this->store_read['data']);
+			$data = $this->store_read['data'];
+			$data = $this->gzip ? gzuncompress($data) : $data;
+
+			return unserialize($data);
 		}
 
 		return false;
@@ -220,9 +222,6 @@ class CachePDO extends CacheCore implements ICacheCore
 	 *
 	 * Returns:
 	 * 	_boolean_ Whether the operation was successful.
-	 *
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
 	public function update($data)
 	{
@@ -291,9 +290,6 @@ class CachePDO extends CacheCore implements ICacheCore
 	 *
 	 * Returns:
 	 * 	_boolean_ Whether the operation was successful.
-	 *
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
 	public function reset()
 	{
@@ -311,9 +307,6 @@ class CachePDO extends CacheCore implements ICacheCore
 	 *
 	 * Returns:
 	 * 	_boolean_ Whether the cache is expired or not.
-	 *
-	 * See Also:
-	 * 	Example Usage - http://tarzan-aws.com/docs/examples/cachecore/cache.phps
 	 */
 	public function is_expired()
 	{
