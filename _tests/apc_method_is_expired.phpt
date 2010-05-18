@@ -25,6 +25,6 @@ bool(false)
 <?php
 	require_once dirname(__FILE__) . '/../cachecore.class.php';
 	require_once dirname(__FILE__) . '/../cacheapc.class.php';
-	$cache = new CacheFile('test', null, 60);
+	$cache = new CacheAPC('test', null, 60);
 	$cache->delete();
 ?>

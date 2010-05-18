@@ -4,10 +4,10 @@
  * 	Memcache-based caching class.
  *
  * Version:
-* 	2009.10.10
+* 	2010.05.17
  *
  * Copyright:
- * 	2006-2009 LifeNexus Digital, Inc., and contributors.
+ * 	2006-2010 Ryan Parman, Foleeo Inc., and contributors.
  *
  * License:
  * 	Simplified BSD License - http://opensource.org/licenses/bsd-license.php
@@ -16,6 +16,7 @@
 * 	CacheCore - http://cachecore.googlecode.com
  * 	CloudFusion - http://getcloudfusion.com
  * 	Memcache - http://php.net/memcache
+ * 	Memcached - http://php.net/memcached
  */
 
 
@@ -33,6 +34,12 @@ class CacheMC extends CacheCore implements ICacheCore
 	 * 	Holds the Memcache object.
 	 */
 	var $memcache = null;
+
+	/**
+	 * Property: is_memcached
+	 * 	Whether the Memcached extension is being used (as opposed to Memcache).
+	 */
+	var $is_memcached = false;
 
 
 	/*%******************************************************************************************%*/
@@ -58,13 +65,36 @@ class CacheMC extends CacheCore implements ICacheCore
 	{
 		parent::__construct($name, null, $expires, $gzip);
 		$this->id = $this->name;
-		$this->memcache = new Memcache();
 
-		if ($this->gzip)
+		// Prefer Memcached over Memcache.
+		if (class_exists('Memcached'))
 		{
-			$this->gzip = MEMCACHE_COMPRESSED;
+			$this->memcache = new Memcached();
+			$this->is_memcached = true;
+		}
+		elseif (class_exists('Memcache'))
+		{
+			$this->memcache = new Memcache();
+		}
+		else
+		{
+			return false;
 		}
 
+		// Enable compression, if available
+		if ($this->gzip)
+		{
+			if ($this->is_memcached)
+			{
+				$this->memcache->setOption(Memcached::OPT_COMPRESSION, true);
+			}
+			else
+			{
+				$this->gzip = MEMCACHE_COMPRESSED;
+			}
+		}
+
+		// Process Memcached servers.
 		if (isset($location) && sizeof($location) > 0)
 		{
 			foreach ($location as $loc)
@@ -75,12 +105,12 @@ class CacheMC extends CacheCore implements ICacheCore
 				}
 				else
 				{
-					$this->memcache->addServer($loc['host']);
+					$this->memcache->addServer($loc['host'], 11211);
 				}
 			}
 		}
 
-		return;
+		return $this;
 	}
 
 	/**
@@ -98,7 +128,11 @@ class CacheMC extends CacheCore implements ICacheCore
 	 */
 	public function create($data)
 	{
-		return $this->memcache->add($this->id, $data, $this->gzip, $this->expires);
+		if ($this->is_memcached)
+		{
+			return $this->memcache->set($this->id, $data, $this->expires);
+		}
+		return $this->memcache->set($this->id, $data, $this->gzip, $this->expires);
 	}
 
 	/**
@@ -113,6 +147,10 @@ class CacheMC extends CacheCore implements ICacheCore
 	 */
 	public function read()
 	{
+		if ($this->is_memcached)
+		{
+			return $this->memcache->get($this->id);
+		}
 		return $this->memcache->get($this->id, $this->gzip);
 	}
 
@@ -131,6 +169,10 @@ class CacheMC extends CacheCore implements ICacheCore
 	 */
 	public function update($data)
 	{
+		if ($this->is_memcached)
+		{
+			return $this->memcache->replace($this->id, $data, $this->expires);
+		}
 		return $this->memcache->replace($this->id, $data, $this->gzip, $this->expires);
 	}
 

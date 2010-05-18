@@ -8,6 +8,7 @@ CacheAPC::create()
 
 --FILE--
 <?php
+	ini_set('apc.slam_defense', 'Off');
 	apc_clear_cache();
 	apc_clear_cache('user');
 
