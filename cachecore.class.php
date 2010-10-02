@@ -125,15 +125,7 @@ class CacheCore
 	public function response_manager($callback, $params = null)
 	{
 		// Automatically handle $params values.
-		if (is_array($params)) {}
-		elseif (is_string($params))
-		{
-			$params = array($params);
-		}
-		else
-		{
-			$params = array($params);
-		}
+		$params = is_array($params) ? $params : array($params);
 
 		if ($data = $this->read())
 		{

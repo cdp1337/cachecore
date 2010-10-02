@@ -103,10 +103,11 @@ class CacheFile extends CacheCore implements ICacheCore
 
 			if ($data === false)
 			{
-				/**
-				 *  This should only happen when someone changes the gzip settings and there is existing data or someone has been
-				 *  mucking about in the cache folder manually. Delete the bad entry since the file cache doesn't clean up after
-				 *  itself and then return false so fresh data will be retrieved.
+				/*
+					This should only happen when someone changes the gzip settings and there is
+					existing data or someone has been mucking about in the cache folder manually.
+					Delete the bad entry since the file cache doesn't clean up after itself and
+					then return false so fresh data will be retrieved.
 				 */
 				$this->delete();
 				return false;

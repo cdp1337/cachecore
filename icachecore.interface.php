@@ -7,7 +7,7 @@
  * 	2009.03.22
  * 
  * Copyright:
- * 	2006-2009 LifeNexus Digital, Inc., and contributors.
+ * 	2006-2010 Ryan Parman, Foleeo Inc., and contributors.
  * 
  * License:
  * 	Simplified BSD License - http://opensource.org/licenses/bsd-license.php
